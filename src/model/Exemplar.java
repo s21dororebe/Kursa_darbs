@@ -1,6 +1,8 @@
 package model;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Random;
 
 import static com.sun.tools.javac.util.Constants.format;
@@ -8,25 +10,28 @@ import static com.sun.tools.javac.util.Constants.format;
 public class Exemplar extends Book {
     //unique book exemplar id
     private String exID = "exemplarID";
-    private long idCounter = 0;
-    private LocalDate publicationDate = LocalDate.of(1900, 1, 1);
+    private static long idCounter = 0;
+    private int publicationYear = 1000;
 
-    public Exemplar(long id, String title, String description, Author author, Category category, int quantityInLibrary, LocalDate writingYear, LocalDate publicationDate) {
+    public Exemplar(long id, String title, String description, Author author, Category category, int quantityInLibrary, LocalDate writingYear, int inputPublicationYear) {
         super(id, title, description, author, category, quantityInLibrary, writingYear);
-        setPublicationDate(publicationDate);
+        setPublicationYear(inputPublicationYear);
         setExID();
     }
-    public Exemplar(Book book, LocalDate publicationDate) {
+    public Exemplar(Book book, int inputPublicationYear) {
         super(book.getId(), book.getTitle(), book.getDescription(), book.getAuthor(), book.getCategory(), book.getQuantityInLibrary(), book.getWritingYear());
-        setPublicationDate(publicationDate);
+        setPublicationYear(inputPublicationYear);
         setExID();
     }
 
-    public LocalDate getPublicationDate() {
-        return publicationDate;
+    public int getPublicationYear() {
+        return publicationYear;
     }
-    public void setPublicationDate(LocalDate publicationDate) {
-        this.publicationDate = publicationDate;
+
+    public void setPublicationYear(int inputPublicationYear) {
+        if(inputPublicationYear >= 1500 && inputPublicationYear <= LocalDateTime.now().getYear()){
+            publicationYear = inputPublicationYear;
+        }
     }
 
     public String getExID() {
@@ -34,16 +39,20 @@ public class Exemplar extends Book {
     }
     public void setExID() {
         //1990AP2005121ABC5
-        exID = format(getWritingYear()) + getAuthor().getName().charAt(1)
-                + getAuthor().getSurname().charAt(1) + getPublicationDate()
-                + randomLetter() + randomLetter() + randomLetter() + idCounter;
-        idCounter++;
+        String pattern = "yyyy";
+        String titleShort = getTitle().substring(0, 3);
+        exID = getWritingYear().format(DateTimeFormatter.ofPattern(pattern)) + Character.toUpperCase(getAuthor().getName().charAt(1)) + Character.toUpperCase(getAuthor().getSurname().charAt(1)) + getPublicationYear();
+        for(int i = 0; i < 3; i++){
+            exID += Character.toUpperCase(titleShort.charAt(i));
+        }
+        exID += idCounter++;
     }
 
-    Random r = new Random();
-    private char randomLetter(){
-        String alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-        return alphabet.charAt(r.nextInt(alphabet.length()));
+    @Override
+    public String toString() {
+        return super.toString() + "Exemplar{" +
+                "exID='" + exID + '\'' +
+                ", publicationDate=" + publicationYear +
+                '}';
     }
-
 }
