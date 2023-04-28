@@ -2,7 +2,7 @@ package model;
 
 import java.security.MessageDigest;
 
-import services.MainService;
+import static services.MainService.allUsers;
 
 public abstract class User extends Person{
 	private String encodedPassword;
@@ -55,8 +55,6 @@ public abstract class User extends Person{
 		}
 	}
 	
-	
-	
 	//3.constructors
 	//no-args
 	public User() {
@@ -74,32 +72,34 @@ public abstract class User extends Person{
 		setEmail(email);
 	}
 	
-	
 	public String toString() {
 		return "" + super.toString() + " " + email + " " + username;
 	}
-	
-	
-	//TODO сделать проверку не существует ли какой-либо эмайл либо юзер либбо пароль уже
-	//TODO проверить нужно ли это - .equals("")
+
 	public void signUp() throws Exception {
-		if(username == null && username.equals("")) {
+		//check if user with the same email or username exists
+		for(User temp : allUsers){
+			if(temp.getUsername().equals(username)){
+				throw new Exception("User with this username already exists");
+			} else if (temp.getEmail().equals(email)){
+				throw new Exception("User with this email already exists");
+			}
+		}
+
+		if(username == null) {
 			throw (new Exception("Username is required"));
-		}
-		if(encodedPassword == null && encodedPassword.equals("")) {
+		} else if(encodedPassword == null) {
 			throw (new Exception("Password is required"));
-		}
-		if(email == null && email.equals("")) {
+		} else if(email == null) {
 			throw (new Exception("Email is required"));
-		}
-		createUser(username, encodedPassword, email);
+		} else createUser(username, encodedPassword, email);
 	}
 	
 	public abstract User createUser(String username, String encodedPassword, String email);
 	
 	
 	public boolean login() {
-		for(User temp: MainService.allUsers) {
+		for(User temp: allUsers) {
 			if(temp.getUsername().equals(username) 
 					&& temp.getEncodedPassword().equals(encodedPassword)) {
 				return true;
