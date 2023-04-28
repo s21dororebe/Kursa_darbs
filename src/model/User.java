@@ -89,8 +89,8 @@ public abstract class User extends Person{
 			throw (new Exception("Email is required"));
 		} else createUser(username, encodedPassword, email);
 	}
-	
-	
+
+
 	
 	public boolean login() {
 		for(User temp: MainService.allUsers) {
@@ -107,7 +107,6 @@ public abstract class User extends Person{
 	//TODO bookABook()
 	
 	
-	//TODO ExtendExpiringDate()
 	public boolean extendExpiringDate(Exemplar exemplar) throws Exception {
 		if(exemplar != null) {
 			for(ExemplarIssue temp : MainService.allExemplarIssue) {
