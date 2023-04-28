@@ -1,35 +1,113 @@
 package model;
 
-public class User {
-    private String name;
-    private long id;
+import java.security.MessageDigest;
 
-    public String getName() {
-        return name;
+import static services.MainService.allUsers;
+
+public abstract class User {
+    private String encodedPassword;
+    private String email;
+    private String username;
+
+    public String getUsername() {
+        return username;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setUsername(String inputUsername) {
+        if(inputUsername != null && inputUsername.matches("[a-z0-9.]{8,20}")) {
+            username = inputUsername;
+        }
+        else {
+            username = "default.user";
+        }
     }
 
-    public long getId() {
-        return id;
+    public String getEmail() {
+        return email;
     }
 
-    public void setId(long id) {
-        this.id = id;
+    public void setEmail(String inputEmail) {
+        if(inputEmail != null && inputEmail.matches("[a-z]+[0-9]{2}[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+[a-z$]")) {
+            email = inputEmail;
+        }
+        else {
+
+            email = "default.email";
+        }
+    }
+    public String getEncodedPassword() {
+        return encodedPassword;
     }
 
-    public User(String name, long id) {
-        this.name = name;
-        this.id = id;
+    public void setEncodedPassword(String inputEncodedPassword) {
+        if(inputEncodedPassword != null && inputEncodedPassword.matches("[A-Za-z0-9]{8,20}")) {
+            try {
+                MessageDigest md = MessageDigest.getInstance("MD5");
+                md.update(inputEncodedPassword.getBytes());
+                encodedPassword = new String(md.digest());
+            }
+            catch (Exception e) {
+                encodedPassword = "defaultPassword";
+            }
+        }
+        else {
+            encodedPassword = "defaultPassword";
+        }
     }
 
-    @Override
+    //3.constructors
+    //no-args
+    public User() {
+        super();
+        setUsername("default.user");
+        setEncodedPassword("defaultPassword");
+        setEmail("default.email");
+    }
+
+    //args
+    public User(String name, String surname, String username, String password) {
+        super();
+        setUsername(username);
+        setEncodedPassword(password);
+        setEmail(email);
+    }
+
     public String toString() {
-        return "User{" +
-                "name='" + name + '\'' +
-                ", id=" + id +
-                '}';
+        return "" + super.toString() + " " + email + " " + username;
     }
+
+    public void signUp() throws Exception {
+        //check if user with the same email or username exists
+        for(User temp : allUsers){
+            if(temp.getUsername().equals(username)){
+                throw new Exception("User with this username already exists");
+            } else if (temp.getEmail().equals(email)){
+                throw new Exception("User with this email already exists");
+            }
+        }
+
+        if(username == null) {
+            throw (new Exception("Username is required"));
+        } else if(encodedPassword == null) {
+            throw (new Exception("Password is required"));
+        } else if(email == null) {
+            throw (new Exception("Email is required"));
+        } else createUser(username, encodedPassword, email);
+    }
+
+    public abstract User createUser(String username, String encodedPassword, String email);
+
+
+    public boolean login() {
+        for(User temp: allUsers) {
+            if(temp.getUsername().equals(username)
+                    && temp.getEncodedPassword().equals(encodedPassword)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    //TODO bookABook()
+    //TODO ExtendExpiringDate()
 }

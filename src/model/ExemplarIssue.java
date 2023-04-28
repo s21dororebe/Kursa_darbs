@@ -1,6 +1,7 @@
 package model;
 
 import java.time.LocalDateTime;
+import services.MainService;
 
 public class ExemplarIssue {
     private User user;
@@ -27,22 +28,38 @@ public class ExemplarIssue {
 
     public void setUser(User user) throws Exception {
         if(user != null){
-            //TODO find user in user list
-            this.user = user;
+            for(User temp : MainService.allUsers){
+                if(temp.getUsername().equals(user.getUsername())){
+                    this.user = user;
+                    break;
+                }
+            }
+            throw new Exception("User not found");
         } else throw new Exception("Invalid input user");
     }
     public void setLibrarian(Librarian librarian) throws Exception {
         if(librarian != null){
+            /*for(Librarian temp : MainService.allLibrarians){
+                if(temp.getUsername().equals(user.getUsername())){
+                    this.user = user;
+                    break;
+                }
+            }
+            throw new Exception("User not found");*/
             //TODO find librarian in librarian list
             this.librarian = librarian;
         } else throw new Exception("Invalid input librarian");
     }
     public void setExemplar(Exemplar exemplar) throws Exception {
         if(exemplar != null){
-            //TODO find exemplar in exemplar list
-            if(!exemplar.isIssued()){
-                this.exemplar = exemplar;
-            } else throw new Exception("This exemplar is taken");
+            for(Exemplar temp : MainService.allExemplars){
+                if(temp.getExID().equals(exemplar.getExID())){
+                    if(!exemplar.isIssued()){
+                        this.exemplar = exemplar;
+                    } else throw new Exception("This exemplar is taken");
+                }
+            }
+            throw new Exception("Exemplar not found");
         } else throw new Exception("Invalid input exemplar");
     }
 
