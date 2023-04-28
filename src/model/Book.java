@@ -1,7 +1,7 @@
 package model;
 
-import java.time.LocalDateTime;
-import Enum.BookGenre;
+import java.time.LocalDate;
+import enumerators.BookGenre;
 
 public class Book {
 	private long generatedId;
@@ -11,17 +11,17 @@ public class Book {
 	private BookGenre genre;
 	private String description;
 	private int quantity = 0;
-	private LocalDateTime publicationDate;
+	private LocalDate writingYear;
 	
 	// Constructors
-	public Book(String title, Author author, BookGenre genre, String description, int quantity, LocalDateTime publicationDate) throws Exception {
+	public Book(String title, Author author, BookGenre genre, String description, int quantity, LocalDate writingYear) throws Exception {
         setGeneratedId();
 		setTitle(title);
 		setAuthor(author);
 		setGenre(genre);
 		setDescription(description);
 		setQuantity(quantity);
-		setPublicationDate(publicationDate);
+		setWritingYear(writingYear);
     }
 	// Setters and Getters
 	
@@ -79,14 +79,14 @@ public class Book {
         }
     }
 
-    public LocalDateTime getPublicationDate() {
-        return publicationDate;
+    public LocalDate getWritingYear() {
+        return writingYear;
     }
-    public void setPublicationDate(LocalDateTime publicationDate) throws Exception {
-    	if (publicationDate.isAfter(LocalDateTime.now())) {
-            throw new Exception("Publication date cannot be in the future");
+    public void setWritingYear(LocalDate writingYear) throws Exception {
+    	if (writingYear.isAfter(LocalDate.now())) {
+            throw new Exception("Writing year cannot be in the future");
         }
-        this.publicationDate = publicationDate;
+        this.writingYear = writingYear;
     }
 
     @Override
@@ -97,7 +97,7 @@ public class Book {
                 ", genre=" + genre +
                 ", description='" + description + '\'' +
                 ", quantity=" + quantity +
-                ", publicationdate=" + publicationDate +
+                ", writingYear=" + writingYear +
                 '}';
     }
     

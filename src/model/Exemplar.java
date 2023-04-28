@@ -3,9 +3,7 @@ package model;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.Random;
-
-import static com.sun.tools.javac.util.Constants.format;
+import enumerators.BookGenre;
 
 public class Exemplar extends Book {
     //unique book exemplar id
@@ -14,13 +12,13 @@ public class Exemplar extends Book {
     private int publicationYear = 1000;
     private boolean isIssued; //eksemplars ir panemts
 
-    public Exemplar(long id, String title, String description, Author author, Category category, int quantityInLibrary, LocalDate writingYear, int inputPublicationYear) {
-        super(id, title, description, author, category, quantityInLibrary, writingYear);
+    public Exemplar(String title, Author author, BookGenre genre, String description, int quantity, LocalDate writingYear, int inputPublicationYear) throws Exception {
+        super(title, author, genre, description, quantity, writingYear);
         setPublicationYear(inputPublicationYear);
         setExID();
     }
-    public Exemplar(Book book, int inputPublicationYear) {
-        super(book.getId(), book.getTitle(), book.getDescription(), book.getAuthor(), book.getCategory(), book.getQuantityInLibrary(), book.getWritingYear());
+    public Exemplar(Book book, int inputPublicationYear) throws Exception {
+        super(book.getTitle(), book.getAuthor(), book.getGenre(), book.getDescription(), book.getQuantity(), book.getWritingYear());
         setPublicationYear(inputPublicationYear);
         setExID();
     }

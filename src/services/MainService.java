@@ -1,5 +1,6 @@
 package services;
 
+import enumerators.BookGenre;
 import model.*;
 
 import java.time.LocalDate;
@@ -16,10 +17,10 @@ public class MainService {
     public static void main(String[] args) {
 
     }
-    public static ArrayList<Book> listBooksByCategory(Category category){
+    public static ArrayList<Book> listBooksByCategory(BookGenre genre){
         ArrayList<Book> bookList = new ArrayList<>();
         for(Book temp : allBooks){
-            if(temp.getCategory().equals(category)){
+            if(temp.getGenre() == (genre)){
                 bookList.add(temp);
             }
         }
