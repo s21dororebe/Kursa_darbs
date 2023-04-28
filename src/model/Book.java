@@ -8,19 +8,19 @@ public class Book {
 	private long generatedId;
 	private static long idCounter = 0;
 	private String title;
-	private String author;
+	private Author author;
 	private BookGenre genre;
 	private String description;
-	private int quantity;
+	private int quantity = 0;
 	private LocalDateTime publicationdate;
 	
 	
 	// Constructors
 	
 	
-	public Book(String title, String author, BookGenre genre, String description, int quantity, LocalDateTime publicationdate) throws Exception {
+	public Book(String title, Author author, BookGenre genre, String description, int quantity, LocalDateTime publicationdate) throws Exception {
 		setTitle(title);
-		this.author = author;
+		setAuthor(author);
 		setGenre(genre);
 		setDescription(description);
 		setQuantity(quantity);
@@ -45,11 +45,17 @@ public class Book {
     }
     public void setTitle(String title) throws Exception {
     	if (title == null) {
-            throw new Exception("title cannot be empty");
+            throw new Exception("Title cannot be empty");
         }
         this.title = title;
     }
     
+    public Author getAuthor() {
+    	return author;
+    }
+    public void setAuthor(Author author) {
+    	this.author = author;
+    }
     
     
     public BookGenre getGenre() {
@@ -65,7 +71,7 @@ public class Book {
     }
     public void setDescription(String description) throws Exception {
     	if (description == null) {
-            throw new Exception("description cannot be empty");
+            throw new Exception("Description cannot be empty");
         }
         this.description = description;
     }
@@ -75,10 +81,7 @@ public class Book {
     	return quantity;
     }
     public void setQuantity(int quantity) throws Exception {
-    	if (quantity == 0) {
-            System.out.println("There are no books in the library available");
-        }
-        else if (quantity <= 99) {
+    	if (quantity <= 99 && quantity > 0) {
             this.quantity = quantity;
         } else {
             throw new Exception("Too much books");

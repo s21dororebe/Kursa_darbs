@@ -15,17 +15,16 @@ public class Author {
 	
 	
 	// Constructors
-	public Author(String name, String surname, LocalDate dateofbirth, LocalDate dateofdeath, ArrayList<Book> books) {
-        setName(name);
+	public Author(long generatedId, String name, String surname, LocalDate dateofbirth, LocalDate dateofdeath, ArrayList<Book> books) {
+        setGeneratedId();
+		setName(name);
         setSurname(surname);
         setDateofBirth(dateofbirth);
         setDateofDeath(dateofdeath);
         setBooks(books);
     }
 	
-	
 	// Setters and Getters
-	
 	public long getGeneratedId() {
 		return generatedId;
 	}
@@ -39,7 +38,7 @@ public class Author {
         return name;
     }
     public void setName(String name) {
-    	if (name != null) {
+    	if (name != null && name.matches("^[A-Z][a-zA-Z]{2,49}$")) {
             this.name = name;
         }
     }
@@ -49,7 +48,7 @@ public class Author {
         return name;
     }
     public void setSurname(String surname) {
-    	if (surname != null) {
+    	if (surname != null && surname.matches("^[A-Z][a-zA-Z]{2,49}$")) {
             this.surname = surname;
         }
     }
