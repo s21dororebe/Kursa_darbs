@@ -5,78 +5,81 @@ import java.time.LocalDateTime;
 import Enum.BookGenre;
 
 public class Book {
-	private int ID = 0;
-	private String Title;
-	private String Author;
-	private BookGenre Genre;
-	private String Description;
-	private int Quantity;
-	private LocalDateTime PublicationDate;
+	private long generatedId;
+	private static long idCounter = 0;
+	private String title;
+	private String author;
+	private BookGenre genre;
+	private String description;
+	private int quantity;
+	private LocalDateTime publicationdate;
 	
 	
 	// Constructors
 	
 	
-	public Book(int ID, String Title, String Author, BookGenre Genre, String Description, int Quantity, LocalDateTime PublicationDate) {
-        this.ID = ID;
-        this.Title = Title;
-        this.Author = Author;
-        this.Genre = Genre;
-        this.Description = Description;
-        this.Quantity = Quantity;
-        this.PublicationDate = PublicationDate;
+	public Book(String title, String author, BookGenre genre, String description, int quantity, LocalDateTime publicationdate) throws Exception {
+		setTitle(title);
+		this.author = author;
+		setGenre(genre);
+		setDescription(description);
+		setQuantity(quantity);
+		setPublicationDate(publicationdate);
     }
+	
 	
 	
 	// Setters and Getters
 	
-	public int getId() {
-        return ID;
-    }
-    public void setId(int ID) {
-        this.ID = ID++;
-    }
+	public long getGeneratedId() {
+		return generatedId;
+	}
+
+	public void setGeneratedId() {
+		this.generatedId = idCounter++;
+	}
         
         
 	public String getTitle() {
-        return Title;
+        return title;
     }
-    public void setTitle(String Title) throws Exception {
-    	if (Title == null) {
-            throw new Exception("Title cannot be empty");
+    public void setTitle(String title) throws Exception {
+    	if (title == null) {
+            throw new Exception("title cannot be empty");
         }
-        this.Title = Title;
+        this.title = title;
     }
+    
     
     
     public BookGenre getGenre() {
-        return Genre;
+        return genre;
     }
-    public void setGenre(BookGenre Genre) {
-        this.Genre = Genre;
+    public void setGenre(BookGenre genre) {
+        this.genre = genre;
     }
     
     
     public String getDescription() {
-        return Description;
+        return description;
     }
-    public void setDescription(String Description) throws Exception {
-    	if (Description == null) {
-            throw new Exception("Description cannot be empty");
+    public void setDescription(String description) throws Exception {
+    	if (description == null) {
+            throw new Exception("description cannot be empty");
         }
-        this.Description = Description;
+        this.description = description;
     }
     
     
     public int getQuantity() {
-    	return Quantity;
+    	return quantity;
     }
-    public void setQuantity(int Quantity) throws Exception {
-    	if (Quantity == 0) {
+    public void setQuantity(int quantity) throws Exception {
+    	if (quantity == 0) {
             System.out.println("There are no books in the library available");
         }
-        else if (Quantity <= 99) {
-            this.Quantity = Quantity;
+        else if (quantity <= 99) {
+            this.quantity = quantity;
         } else {
             throw new Exception("Too much books");
         }
@@ -84,26 +87,25 @@ public class Book {
     
     
     public LocalDateTime getPublicationDate() {
-        return PublicationDate;
+        return publicationdate;
     }
-    public void setPublicationDate(LocalDateTime PublicationDate) {
-    	if (PublicationDate.isAfter(LocalDateTime.now())) {
-            throw new IllegalArgumentException("Publication date cannot be in the future");
+    public void setPublicationDate(LocalDateTime publicationdate) throws Exception {
+    	if (publicationdate.isAfter(LocalDateTime.now())) {
+            throw new Exception("Publication date cannot be in the future");
         }
-        this.PublicationDate = PublicationDate;
+        this.publicationdate = publicationdate;
     }
     
     
     @Override
     public String toString() {
         return "Book{" +
-                "id=" + ID +
-                ", title='" + Title + '\'' +
-                ", author='" + Author + '\'' +
-                ", genre=" + Genre +
-                ", description='" + Description + '\'' +
-                ", quantity=" + Quantity +
-                ", publicationDate=" + PublicationDate +
+                " title='" + title + '\'' +
+                ", author='" + author + '\'' +
+                ", genre=" + genre +
+                ", description='" + description + '\'' +
+                ", quantity=" + quantity +
+                ", publicationdate=" + publicationdate +
                 '}';
     }
     

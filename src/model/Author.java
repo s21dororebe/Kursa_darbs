@@ -5,94 +5,94 @@ import java.util.ArrayList;
 
 
 public class Author {
-	private int ID = 0;
-	private String Name;
-	private String Surname;
-	private LocalDate DateofBirth;
-	private LocalDate DateofDeath;
-	private ArrayList<Book> Books;
+	private long generatedId;
+	private static long idCounter = 0;
+	private String name;
+	private String surname;
+	private LocalDate dateofbirth;
+	private LocalDate dateofdeath;
+	private ArrayList<Book> books;
 	
 	
 	// Constructors
-	public Author(int ID, String Name, String Surname, LocalDate DateofBirth, LocalDate DateofDeath, ArrayList<Book> Books) {
-        this.ID = ID = 0;
-        this.Name = Name;
-        this.Surname = Surname;
-        this.DateofBirth = DateofBirth;
-        this.DateofDeath = DateofDeath;
-        this.Books = Books;
+	public Author(String name, String surname, LocalDate dateofbirth, LocalDate dateofdeath, ArrayList<Book> books) {
+        setName(name);
+        setSurname(surname);
+        setDateofBirth(dateofbirth);
+        setDateofDeath(dateofdeath);
+        setBooks(books);
     }
 	
 	
 	// Setters and Getters
 	
-	public int getID() {
-		return ID;
+	public long getGeneratedId() {
+		return generatedId;
 	}
-	public void setID(int ID) {
-		this.ID = ID++;
+
+	public void setGeneratedId() {
+		this.generatedId = idCounter++;
 	}
 	
 	
-	public String getName() {
-        return Name;
+	public String getname() {
+        return name;
     }
-    public void setName(String Name) {
-    	if (Name != null) {
-            this.Name = Name;
+    public void setName(String name) {
+    	if (name != null) {
+            this.name = name;
         }
     }
     
     
-    public String getSurname() {
-        return Name;
+    public String getsurname() {
+        return name;
     }
-    public void setSurname(String Surname) {
-    	if (Surname != null) {
-            this.Surname = Surname;
+    public void setSurname(String surname) {
+    	if (surname != null) {
+            this.surname = surname;
         }
     }
     
     
-    public LocalDate getDateOfBirth() {
-        return DateofBirth;
+    public LocalDate getdateofbirth() {
+        return dateofbirth;
     }
-    public void setDateOfBirth(LocalDate DateofBirth) {
+    public void setDateofBirth(LocalDate dateofbirth) {
     	LocalDate today = LocalDate.now();
-        if (DateofBirth != null && !DateofBirth.isAfter(today)) {
-            this.DateofBirth = DateofBirth;
+        if (dateofbirth != null && !dateofbirth.isAfter(today)) {
+            this.dateofbirth = dateofbirth;
         }
     }
     
 
-    public LocalDate getDateOfDeath() {
-        return DateofDeath;
+    public LocalDate getdateofdeath() {
+        return dateofdeath;
     }
-    public void setDateOfDeath(LocalDate DateofDeath) {
+    public void setDateofDeath(LocalDate dateofdeath) {
     	LocalDate today = LocalDate.now();
-        if (DateofDeath != null && !DateofDeath.isAfter(today)) {
-            this.DateofDeath = DateofDeath;
+        if (dateofdeath != null && !dateofdeath.isAfter(today)) {
+            this.dateofdeath = dateofdeath;
         }
     }
 
     
-    public ArrayList<Book> getBooks() {
-        return Books;
+    public ArrayList<Book> getbooks() {
+        return books;
     }
-    public void setBooks(ArrayList<Book> Books) {
-        this.Books = Books;
+    public void setBooks(ArrayList<Book> books) {
+        this.books = books;
     }
 
     
     @Override
     public String toString() {
         return "Author{" +
-                "id=" + ID +
-                ", name='" + Name + '\'' +
-                ", surname='" + Surname + '\'' +
-                ", dateOfBirth=" + DateofBirth +
-                ", dateOfDeath=" + DateofDeath +
-                ", books=" + Books +
+                " name='" + name + '\'' +
+                ", surname='" + surname + '\'' +
+                ", dateofbirth=" + dateofbirth +
+                ", dateofdeath=" + dateofdeath +
+                ", books=" + books +
                 '}';
     }
     
