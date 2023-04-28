@@ -6,6 +6,17 @@ import java.time.format.DateTimeFormatter;
 import enumerators.BookGenre;
 
 public class Exemplar extends Book {
+
+    /*
+    * 1)grāmatas eksemplārs, kas tiek panemts,
+    * 2) lietotājs, kur paņem grāmatu,
+    * 3) datums un laiks, kad tiek paņemta grāmata,
+    * 4) automātiski aprēķināts datums, kad būtu jāatdod grāmata(tipiski pēc 14 dienām),
+    * 5) kad reāli grāmata tiek atdota,
+    * 6) soda nauda, ja tāda ir(automātiski aprēķināta),
+    * 7) vai ir iespējams grāmatu pagarināt(piemēram, skaitīt, cik reizes jau ir pagarināta, bet ne vairāk kā 5 reizes). Ja Jums ir arī biliotekārs iesaistīts grāmatas paņemšanā un atdošanā, tad arī vajadzētu
+    * 8)kurš bibliotekārs atdeva grāmatu lietotājam,
+    * 9) kurš bibliotekārs pieņema grāmatu no lietotāja. */
     //unique book exemplar id
     private String exID = "exemplarID";
     private static long idCounter = 0;
