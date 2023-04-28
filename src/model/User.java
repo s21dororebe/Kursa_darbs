@@ -1,6 +1,8 @@
 package model;
 
 import java.security.MessageDigest;
+import java.time.LocalDateTime;
+
 import services.MainService;
 
 public abstract class User extends Person{
@@ -36,6 +38,8 @@ public abstract class User extends Person{
 	public String getEncodedPassword() {
 		return encodedPassword;
 	}
+	
+	
 	public void setEncodedPassword(String inputEncodedPassword) {
 		if(inputEncodedPassword != null && inputEncodedPassword.matches("[A-Za-z0-9]{8,20}")) {
 			try {
@@ -77,7 +81,6 @@ public abstract class User extends Person{
 				throw new Exception("User with this email already exists");
 			}
 		}
-
 		if(username == null) {
 			throw (new Exception("Username is required"));
 		} else if(encodedPassword == null) {
@@ -86,6 +89,9 @@ public abstract class User extends Person{
 			throw (new Exception("Email is required"));
 		} else createUser(username, encodedPassword, email);
 	}
+	
+	
+	
 	public boolean login() {
 		for(User temp: MainService.allUsers) {
 			if(temp.getUsername().equals(username)
@@ -99,6 +105,22 @@ public abstract class User extends Person{
 	public abstract User createUser(String username, String encodedPassword, String email);
 
 	//TODO bookABook()
+	
+	
 	//TODO ExtendExpiringDate()
-	//TODO 
+	public boolean extendExpiringDate(Exemplar exemplar) throws Exception {
+		if(exemplar != null) {
+			for(ExemplarIssue temp : MainService.allExemplarIssue) {
+				if(temp.getExemplar().getExID().equals(exemplar.getExID())) {
+					temp.setDateTimeBookReturn(LocalDateTime.now().plusWeeks(2));
+					return true;
+				}
+			}
+			return false;
+		}
+		else {
+			return false;
+		}
+	}
+	
 }

@@ -1,0 +1,28 @@
+public boolean reserveBook(String bookTitle) {
+    // Получаем количество доступных экземпляров книги
+    int availableCopies = getAvailableCopies(bookTitle);
+
+    // Если доступных экземпляров нет, возвращаем false
+    if (availableCopies == 0) {
+        return false;
+    }
+
+    // Если есть доступные экземпляры, уменьшаем количество на 1
+    availableCopies--;
+
+    // Обновляем информацию о доступных экземплярах в базе данных
+    updateAvailableCopies(bookTitle, availableCopies);
+
+    // Возвращаем true, что бронирование прошло успешно
+    return true;
+}
+
+private int getAvailableCopies(String bookTitle) {
+    // Здесь реализуем получение количества доступных экземпляров книги из базы данных
+    // Возвращаемое значение зависит от структуры базы данных
+}
+
+private void updateAvailableCopies(String bookTitle, int availableCopies) {
+    // Здесь реализуем обновление информации о доступных экземплярах книги в базе данных
+    // Входные параметры зависят от структуры базы данных
+}

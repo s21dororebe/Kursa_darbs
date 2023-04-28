@@ -11,6 +11,7 @@ public class MainService {
     public static ArrayList<Author> allAuthors = new ArrayList<>();
     public static ArrayList<Book> allBooks = new ArrayList<>();
     public static ArrayList<Exemplar> allExemplars = new ArrayList<>();
+    public static ArrayList<ExemplarIssue> allExemplarIssue = new ArrayList<>();
     public static ArrayList<User> allUsers = new ArrayList<>();
     public static ArrayList<Librarian> allLibrarians = new ArrayList<>();
 
