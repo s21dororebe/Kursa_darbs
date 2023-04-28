@@ -3,24 +3,22 @@ package model;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
-
 public class Author {
 	private long generatedId;
 	private static long idCounter = 0;
 	private String name;
 	private String surname;
-	private LocalDate dateofbirth;
-	private LocalDate dateofdeath;
+	private LocalDate dateOfBirth;
+	private LocalDate dateOfDeath;
 	private ArrayList<Book> books;
-	
-	
+
 	// Constructors
-	public Author(long generatedId, String name, String surname, LocalDate dateofbirth, LocalDate dateofdeath, ArrayList<Book> books) {
+	public Author(String name, String surname, LocalDate dateOfBirth, LocalDate dateOfDeath, ArrayList<Book> books) throws Exception {
         setGeneratedId();
 		setName(name);
         setSurname(surname);
-        setDateofBirth(dateofbirth);
-        setDateofDeath(dateofdeath);
+        setDateOfBirth(dateOfBirth);
+        setDateOfDeath(dateOfDeath);
         setBooks(books);
     }
 	
@@ -28,69 +26,62 @@ public class Author {
 	public long getGeneratedId() {
 		return generatedId;
 	}
-
 	public void setGeneratedId() {
 		this.generatedId = idCounter++;
 	}
 	
-	
-	public String getname() {
+	public String getName() {
         return name;
     }
-    public void setName(String name) {
+    public void setName(String name) throws Exception {
     	if (name != null && name.matches("^[A-Z][a-zA-Z]{2,49}$")) {
             this.name = name;
-        }
+        } else throw new Exception("Invalid input name");
     }
     
-    
-    public String getsurname() {
+    public String getSurname() {
         return name;
     }
-    public void setSurname(String surname) {
+    public void setSurname(String surname) throws Exception {
     	if (surname != null && surname.matches("^[A-Z][a-zA-Z]{2,49}$")) {
             this.surname = surname;
-        }
+        } else throw new Exception("Invalid input name");
     }
     
-    
-    public LocalDate getdateofbirth() {
-        return dateofbirth;
+    public LocalDate getDateOfBirth() {
+        return dateOfBirth;
     }
-    public void setDateofBirth(LocalDate dateofbirth) {
-    	LocalDate today = LocalDate.now();
-        if (dateofbirth != null && !dateofbirth.isAfter(today)) {
-            this.dateofbirth = dateofbirth;
-        }
-    }
-    
-
-    public LocalDate getdateofdeath() {
-        return dateofdeath;
-    }
-    public void setDateofDeath(LocalDate dateofdeath) {
-    	LocalDate today = LocalDate.now();
-        if (dateofdeath != null && !dateofdeath.isAfter(today)) {
-            this.dateofdeath = dateofdeath;
-        }
+    public void setDateOfBirth(LocalDate dateOfBirth) throws Exception {
+        if (dateOfBirth != null && dateOfBirth.isBefore(LocalDate.now())) {
+            this.dateOfBirth = dateOfBirth;
+        } else throw new Exception("Invalid input date of birth");
     }
 
+    public LocalDate getDateOfDeath() {
+        return dateOfDeath;
+    }
+    public void setDateOfDeath(LocalDate dateOfDeath) throws Exception {
+        if (dateOfDeath != null && dateOfDeath.isBefore(LocalDate.now())) {
+            this.dateOfDeath = dateOfDeath;
+        } else throw new Exception("Invalid input date of birth");
+    }
     
-    public ArrayList<Book> getbooks() {
+    public ArrayList<Book> getBooks() {
         return books;
     }
-    public void setBooks(ArrayList<Book> books) {
-        this.books = books;
+    public void setBooks(ArrayList<Book> books) throws Exception {
+        if(books != null)
+            this.books = books;
+        else throw new Exception ("Invalid input books array list");
     }
-
     
     @Override
     public String toString() {
         return "Author{" +
                 " name='" + name + '\'' +
                 ", surname='" + surname + '\'' +
-                ", dateofbirth=" + dateofbirth +
-                ", dateofdeath=" + dateofdeath +
+                ", dateOfBirth=" + dateOfBirth +
+                ", dateOfDeath=" + dateOfDeath +
                 ", books=" + books +
                 '}';
     }
