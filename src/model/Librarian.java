@@ -1,8 +1,9 @@
 package model;
 
 import services.MainService;
-/*
-public class Librarian extends User{
+
+public class Librarian extends Person{
+	/*
 	private String username;
 	private String encodedPassword;
 	
